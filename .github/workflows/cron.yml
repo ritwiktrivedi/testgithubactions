@@ -7,6 +7,8 @@ on:
 jobs:
   daily_commit:
     runs-on: ubuntu-latest
+    permissions:  # Add these lines
+      contents: write # This is the key!
     steps:
       - name: 22f1000120@ds.study.iitm.ac.in
         uses: actions/checkout@v3
