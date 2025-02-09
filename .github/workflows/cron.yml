@@ -1,0 +1,26 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: '5 * * * *'  # Runs daily at 00:30 UTC (adjust as needed)
+
+jobs:
+  daily_commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 22f1000120@ds.study.iitm.ac.in
+        uses: actions/checkout@v3
+
+      - name: Add a commit
+        run: |
+          git config --global user.email "ritwik.trivedi@gmail.com"
+          git config --global user.name "GitHub Actions Bot" # Or your preferred name
+          echo "Daily commit $(date)" > daily_update.txt
+          git add daily_update.txt
+          git commit -m "Automated daily update"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }} # Push to the same branch that triggered the workflow
